@@ -215,26 +215,203 @@
           </section>
 
           <section>
-            <h3>Correctly guess my view on this and you can have a chocolate.</h3>
+            <h3>Correctly guess my view on this ONE function and you can have a guilt-free chocolate.</h3>
           </section>
 
-          <!-- TODO -->
           <section>
-            <p>Insert bad example of code</p>
+            <pre><code class="hljs" data-trim contenteditable>
+function fileUpload($window, Modal) {
+
+  return {
+    restrict: 'A',
+    scope: {
+      sendData: '&',
+      reupload: '='
+    },
+    templateUrl: 'components/fileUpload/fileUpload.html',
+    link: function (scope, element) {
+
+      // Get file upload element.
+      var input = element.find('input');
+
+      // Watch for file change.
+      input.bind('change', function () {
+            </code></pre>
           </section>
 
-          <!-- TODO -->
           <section>
-            <p>Insert good example of code</p>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+        // Extract first and only uploaded file.
+        var file = input[0].files[0];
+
+        // Check that the user's browser supports the FileReader API.
+        if ($window.FileReader) {
+
+          var reader = new $window.FileReader();
+
+          // If an error occurs while reading the file a modal will display.
+          var modalContent;
+
+          // Handle read complete.
+          reader.onload = function (e) {
+
+            // Get the name of the file.
+            var name = input[0].files[0].name;
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+              // Extract file extension.
+              var extension = name.split('.').pop().toLowerCase();
+
+              // The file must be a CSV file.
+              if (extension === 'csv') {
+
+                try {
+
+                  // Extract file upload results.
+                  var contents = e.target.result;
+
+                  // Have d3 convert text to object.
+                  var data = d3.csv.parse(contents);
+
+                  // Send results back.
+                  scope.sendData({data: data, file: name});
+            </code></pre>
+          </section>
+
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+                } catch (e) {
+                  // Trying to read the file has failed, the user will be notified.
+                  modalContent = {
+                    title: 'Error Reading File',
+                    text: 'There is an issue with the file being uploaded. Please try ' +
+                    'again or use a different file.'
+                  };
+                }
+              } else {
+                // The user has not uploaded a CSV. Display an error dialog.
+                modalContent = {
+                  title: 'Incorrect File Type',
+                  text: 'You have uploaded a ' + extension.toUpperCase() +
+                  ' file. This is not supported. Please upload a CSV file.',
+                  icon: 'warning'
+                };
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+              // Display a modal if necessary.
+              if (!_.isUndefined(modalContent)) {
+
+                // Regardless of the error, a close button and warning icon
+                // will display on the modal dialog.
+                modalContent.icon = 'warning';
+                modalContent.buttons = [{
+                  label: 'Close',
+                  icon: 'times',
+                  click: function () {
+                    Modal.hide();
+                  }
+                }];
+
+                // Display the modal to the user.
+                Modal.show(modalContent);
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+                // Poor angular will be lost now since FileReader was used.
+                // Need to $apply() to get the modal to appear.
+                scope.$apply();
+
+              }
+
+            };
+
+            // Read file contents as text.
+            reader.readAsText(file);
+
+          } else {
+
+            // The FileReader API is missing, the user cannot continue.
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+              // continued
+                        Modal.show({
+                          title: 'Browser Issue',
+                          text: 'The browser you are using does not support a ' +
+                          'feature necessary for uploading data in this application. ' +
+                          'Please use a more up to date browser to continue.',
+                          icon: 'warning',
+                          buttons: [{
+                            label: 'Close',
+                            icon: 'times',
+                            click: function () { Modal.hide(); }
+                          }]
+                        });
+                      }
+                    });
+                  }
+                };
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>So...</h3>
+          </section>
+
+          <section>
+            <img height="600"
+              data-src="lib/images/cadbury_chocolate.jpg" style="border: 0px;">
+          </section>
+
+          <section>
+            <h3>Another example</h3>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+def build_month_end_df_from_activity_df(activity_df):
+    """
+    Returns a month-end Data Frame based on the transaction-day data
+    Some colums take the last value, others the sum.
+    """
+    monthly_df = pd.DataFrame()
+    last_vals = activity_df.groupby(pd.TimeGrouper('1M')).last()
+    sum_vals  = activity_df.groupby(pd.TimeGrouper('1M')).sum()
+
+    last_cols = SharedUtils.get_cols_for_last_vals()
+    sum_cols  = SharedUtils.get_cols_for_summation()
+
+    monthly_df[last_cols] = last_vals[last_cols]
+    monthly_df[sum_cols]  = sum_vals[sum_cols]
+
+    return monthly_df
+            </code></pre>
           </section>
 
           <section>
             <h2>Why is this better?</h2>
             <ul>
               <li class="fragment">Sensible Name</li>
-              <li class="fragment">Follows Language Conventions</li>
               <li class="fragment">Readable</li>
-              <li class="fragment">Outsources distinct task</li>
+              <li class="fragment">Breaks into distinct tasks</li>
               <li class="fragment">Modification is Feasible</li>
             </ul>
           </section>
@@ -242,6 +419,77 @@
           <section>
             <p>A special word on</p>
             <h2 class="fragment">Stored Procecures</h2>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+CREATE PROCEDURE create_email_address ( -- Procedure heading part begins
+    name1 VARCHAR2,
+    name2 VARCHAR2,
+    company VARCHAR2,
+    email OUT VARCHAR2
+) -- Procedure heading part ends
+AS
+-- Declarative part begins (optional)
+error_message VARCHAR2(30) := 'Email address is too long.';
+BEGIN -- Executable part begins (mandatory)
+    email := name1 || '.' || name2 || '@' || company;
+EXCEPTION -- Exception-handling part begins (optional)
+WHEN VALUE_ERROR THEN
+    DBMS_OUTPUT.PUT_LINE(error_message);
+END build_email_address;
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+class User(models.Model):
+    company = models.CharField(max_length=100)
+    name1   = models.CharField(max_length=100)
+    name2   = models.CharField(max_length=100)
+
+    def build_username(self):
+        return name1 + '.' + name2
+
+    def build_email_address(self):
+        return build_username() '@' + company
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+class Company(models.Model):
+    name   = models.CharField(max_length=100)
+
+class User(models.Model):
+    company = models.ForeignKey(Company)
+    name1   = models.CharField(max_length=100)
+    name2   = models.CharField(max_length=100)
+
+    def build_username(self):
+        return name1 + '.' + name2
+
+    def build_email_address(self):
+        return build_username() '@' + company.name
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="hljs" data-trim contenteditable>
+class Company(models.Model):
+    name   = models.CharField(max_length=100)
+
+class User(models.Model):
+    company    = models.ForeignKey(Company)
+    first_name = models.CharField(max_length=100, db_column='name1',)
+    last_name  = models.CharField(max_length=100, db_column='name2',)
+
+    def build_username(self):
+        return first_name + '.' + last_name
+
+    def build_email_address(self):
+        return build_username() '@' + company.name
+            </code></pre>
           </section>
 
           <section>
@@ -261,7 +509,7 @@
               <li class="fragment">You may have no choice</li>
               <li class="fragment">They *can* be highly performanant</li>
               <li class="fragment">
-                Only for DBA tasks and/or invariant data models</li>
+                My suggestion: Only for DBA tasks and/or invariant data models</li>
             </ul>
           </section>
         </section>
