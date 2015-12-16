@@ -50,6 +50,18 @@
 
         <section>
           <section>
+            <h2>Learning Objectives</h2>
+            <ul>
+              <li class="fragment">Gain overview of some big concepts</li>
+              <li class="fragment">Why certain issues are important</li>
+              <li class="fragment">Share experiences amongst the group</li>
+              <li class="fragment">Ways to make work easier</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
             <h2>Version Control</h2>
             <p>(a.k.a. Source Control and Revision Control)</p>
           </section>
@@ -68,10 +80,10 @@
           <section>
             <h3>Yes, if you ever intend to:</h3>
             <ul>
-              <li class="fragment">No order here</li>
-              <li class="fragment">Or here</li>
-              <li class="fragment">Or here</li>
-              <li class="fragment">Or here</li>
+              <li class="fragment">Collaborate with others</li>
+              <li class="fragment">Do anything that may break existing code - at any stage</li>
+              <li class="fragment">Refactor your code</li>
+              <li class="fragment">Support multiple versions of your code</li>
             </ul>
           </section>
           <section>
@@ -80,18 +92,104 @@
               <li class="fragment">Git: git</li>
               <li class="fragment">Mercurial: hg</li>
               <li class="fragment">Subversion: svn</li>
-              <li class="fragment">CVS</li>
-              <!-- TODO: Get Command Line tool name -->
+              <li class="fragment">CVS: cvs</li>
             </ul>
           </section>
           <section>
             <h2>GitFlow</h2>
             <p class="fragment">
               A opinion (v. commonly followed) on how to use Git</p>
-            <p class="fragment">A crash course in concepts and considerations</p>
+            <p class="fragment">A rapid intro to concepts and considerations</p>
           </section>
+
           <section>
-            <p>Other: Continuous Integration</p>
+            <h3>Mary begins a new feature</h3>
+            <img width="600"
+              data-src="lib/images/mary_starts_new_feature.svg"
+              style="border: 0px;">
+            <pre><code class="hljs" data-trim contenteditable>
+              git checkout -b marys-feature master
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Mary makes a few commits and pushes her work</h3>
+            <img width="600"
+              data-src="lib/images/mary_commits.svg"
+              style="border: 0px;">
+            <pre><code class="hljs" data-trim contenteditable>
+              git push -u origin marys-feature
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Mary finishes feature</h3>
+            <img width="600"
+              data-src="lib/images/mary_finishes.svg"
+              style="border: 0px;">
+            <pre><code class="hljs" data-trim contenteditable>
+              git push
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Mary issues pull request; Bill receives</h3>
+            <img width="600"
+              data-src="lib/images/bill_issues_pull_request.svg"
+              style="border: 0px;">
+          </section>
+
+          <section>
+            <h3>Mary makes changes as suggested by Bill</h3>
+            <img width="600"
+              data-src="lib/images/mary_does_bills_changes.svg"
+              style="border: 0px;">
+          </section>
+
+          <section>
+            <h3>Mary's changes are published</h3>
+            <img width="600"
+              data-src="lib/images/mary_publishes.svg"
+              style="border: 0px;">
+            <pre><code class="hljs" data-trim contenteditable>
+git checkout master
+git pull
+git pull origin marys-feature
+git push
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>But what about another developer?</h3>
+            <img width="600"
+              data-src="lib/images/local_behind_master.svg"
+              style="border: 0px;">
+          </section>
+
+          <section>
+            <h3>They need to 'rebase'</h3>
+            <pre><code class="hljs" data-trim contenteditable>
+              git rebase
+            </code></pre>
+            <img width="600"
+              data-src="lib/images/post_rebase.svg"
+              style="border: 0px;">
+          </section>
+
+          <section>
+            <h3>We may end up with something like...</h3>
+            <img width="600"
+              data-src="lib/images/with_maintenance_and_develop.svg"
+              style="border: 0px;">
+          </section>
+
+          <section>
+            <h2>Continuous Integration</h2>
+            <blockquote
+              cite="http://www.martinfowler.com/articles/continuousIntegration.html"
+              class="fragment">
+            Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.
+            </blockquote>
           </section>
         </section>
 
@@ -530,7 +628,7 @@ class User(models.Model):
 
         <section>
           <section>
-            <h2>What I hope you can take from today:</h2>
+            <h3>I hope you can take a few things from today:</h3>
             <ul>
               <li class="fragment">LT support considerations in any new work</li>
               <li class="fragment">A willingness to use Git*</li>
@@ -538,7 +636,17 @@ class User(models.Model):
               <li class="fragment">So does good quality code!</li>
             </ul>
           </section>
-          <!-- TODO Questions -->
+
+          <section>
+            <img width="600"
+              data-src="lib/images/question_mark.jpg" style="border: 0px;">
+          </section>
+
+          <section>
+            <img height="700"
+              data-src="lib/images/thanks.png" style="border: 0px;">
+          </section>
+
         </section>
 
         <section>
