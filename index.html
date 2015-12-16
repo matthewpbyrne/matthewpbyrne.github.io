@@ -199,25 +199,106 @@ git push
           </section>
 
           <section>
-            <h2>x</h2>
-            <!-- TODO Types: Units, Integration, Perf, Pen -->
+            <h2>Testing categories:</h2>
+            <ul>
+              <li class="fragment">Unit</li>
+              <li class="fragment">Integration</li>
+              <li class="fragment">Performance</li>
+              <li class="fragment">Security/Penetration</li>
+              <li class="fragment">A/B</li>
+              <li class="fragment">Alpha/Beta</li>
+              <li class="fragment">lots of others, including Regression!</li>
+            </ul>
           </section>
 
           <section>
-            <h2>x</h2>
-            <!-- TODO Unit, what is (tools per language: Java, Python, R), example -->
+            <h3>Discussion:</h3>
+            <h5 class="fragment">What are the benefits of testing?<h5>
+            <h5 class="fragment">
+              If we don't write the test first, it's not Test Driven Development
+            </h5>
+            <h5 class="fragment">What are the benefits of TDD?<h5>
           </section>
 
           <section>
-            <h2>x</h2>
-            <!-- TODO Integration, what is and tools, example -->
+            <h3>What does a Unit Test look like?</h3>
+            <pre class="fragment"><code class="hljs" data-trim contenteditable>
+import unittest
+
+class DefaultWidgetSizeTestCase(unittest.TestCase):
+    def runTest(self):
+        widget = Widget('The widget')
+        self.assertEqual(widget.size(),
+                         (50, 50),
+                         'incorrect default size')
+            </code></pre>
+            <p class="fragment">The corresponding class looks like</p>
+            <pre class="fragment"><code class="hljs" data-trim contenteditable>
+class Widget:
+    def __init__(self, name):
+        # do something
+
+    def size(self):
+        # set h and w
+        return (h, w)
+            </code></pre>
           </section>
 
           <section>
-            <h2>x</h2>
-            <!-- TODO Perf testing, tools, examples -->
+            <h3>How about an Integration Test?</h3>
+            <pre class="fragment"><code class="hljs" data-trim contenteditable>
+describe('GET /user/:id', function(){
+  describe('when present', function(){
+    it('should display the users pets', function(done){
+      request(app)
+      .get('/user/1')
+      .expect(/\/pet\/1">Loki/)
+      .expect(/\/pet\/2">Jane/)
+      .expect(200, done)
+    })
+  })
+  describe('when not present', function(){
+    it('should 404', function(done){
+      request(app)
+      .get('/user/123')
+      .expect(404, done);
+    })
+  })
+})
+            </code></pre>
           </section>
 
+          <section>
+            <h3>And Performance Testing?</h3>
+            <pre class="fragment"><code class="hljs" data-trim contenteditable>
+httperf --server hostname \
+   --port 80 --uri /test.html \
+   --rate 150 --num-conn 27000 \
+   --num-call 1 --timeout 5
+            </code></pre>
+
+            <pre class="fragment"><code class="hljs" data-trim contenteditable>
+Total: connections 27000 requests 26701 replies 26701 test-duration 179.996 s
+
+Connection rate: 150.0 conn/s (6.7 ms/conn, <=47 concurrent connections)
+Connection time [ms]: min 1.1 avg 5.0 max 315.0 median 2.5 stddev 13.0
+Connection time [ms]: connect 0.3
+
+Request rate: 148.3 req/s (6.7 ms/req)
+Request size [B]: 72.0
+
+Reply rate [replies/s]: min 139.8 avg 148.3 max 150.3 stddev 2.7 (36 samples)
+Reply time [ms]: response 4.6 transfer 0.0
+Reply size [B]: header 222.0 content 1024.0 footer 0.0 (total 1246.0)
+Reply status: 1xx=0 2xx=26701 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 55.31 system 124.41 (user 30.7% system 69.1% total 99.8%)
+Net I/O: 190.9 KB/s (1.6*10^6 bps)
+
+Errors: total 299 client-timo 299 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+            </code></pre>
+          </section>
         </section>
 
 
@@ -621,9 +702,34 @@ class User(models.Model):
 
         <section>
           <section>
-            <h2>Other</h2>
+            <h2>Some other Useful and Important concepts</h2>
           </section>
-          <!-- TODO  -->
+
+          <section>
+            <h3>Convention Over Configuration</h3>
+            <blockquote class="fragment"
+              cite="http://stackoverflow.com/questions/901851/what-is-coding-by-convention">
+              &ldquo;
+              A software design paradigm which seeks to decrease the number of decisions that developers need to make, gaining simplicity, but not necessarily losing flexibility.
+              &rdquo;
+            </blockquote>
+          </section>
+
+          <section>
+            <h3>Library vs Framework</h3>
+            <blockquote class="fragment" cite="http://stackoverflow.com/questions/148747/what-is-the-difference-between-a-framework-and-a-library">
+              &ldquo;
+              A library performs specific, well-defined operations.
+              &rdquo;
+            </blockquote>
+
+            <blockquote class="fragment" cite="http://stackoverflow.com/questions/148747/what-is-the-difference-between-a-framework-and-a-library">
+              &ldquo;
+              A framework is a skeleton where the application defines the "meat" of the operation by filling out the skeleton. The skeleton still has code to link up the parts but the most important work is done by the application.
+              &rdquo;
+            </blockquote>
+            <h3 class="fragment">Inversion of Control</h3>
+          </section>
         </section>
 
         <section>
